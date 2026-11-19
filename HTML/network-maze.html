@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>GLITCH - NEXUS Network Maze</title>
+<link rel="stylesheet" href="../CSS/maze.css" />
+</head>
+<body>
+<div id="app">
+  <h1>NEXUS // NETWORK</h1>
+  <div>Find the path from START to EXIT by clicking on neighboring squares.</div>
+  <div class="hud">
+    <span>TIME: <b id="time">60</b>s</span>
+    <span>SUSPICION: <b id="suspicion">0</b>/100</span>
+  </div>
+  <div id="story"></div>
+  <div id="grid"></div>
+  <div id="msg"></div>
+  <div style="text-align:center;margin-top:8px">
+    <button id="startAgain" hidden>Start Again</button>
+  </div>
+  <div id="log"></div>
+</div>
+<script src="../JavaScript/maze.js"></script>
+</body>
+</html>
