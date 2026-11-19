@@ -1,5 +1,5 @@
 
-/* ===== DATA - Contributor: <NAME> =====
+/* ===== MAZE CONFIGURATIONS =====
    Layout legend: '.' open node, '#' blocked, 'S' start/source, 'E' exit.
    One reusable maze, four configurations (one per storyline, Stage 4). */
 const MAZES = {
@@ -21,11 +21,34 @@ MAZES.A.grid = ["S.#...", "#.#.#.", "....#.", ".#####", "......", "####.E"];
 MAZES.A.grid[2] = "....#.";
 MAZES.A.grid[3] = ".####.";
 
-/* ===== SAVE / LOAD - Contributor: <NAME> ===== */
+/* ===== MAZE STATE ===== */
+let mazeConfig;        // configuration for the currently selected maze, including its grid, time, penalty, and story
+let cells, rows, cols;
+let paths = [];        // one array of "r,c" keys per source
+let active = 0;        // position of the currently selected source in the paths array
+let moves = 0, timeLeft = 0, timer = null, locked = false;
+let canRetry = false;
+
+const $ = id => document.getElementById(id);   // simplifying code to not write getElementById every time
+const key = (r, c) => r + "," + c;
+const parse = k => k.split(",").map(Number);
+
+/* ===== SAVE / LOAD ===== */
 const SAVE_KEY = "glitchSave.";
 function defaultSave() 
 { 
-  return { character: "Hacker", path: "A", suspicion: 0, mazesCompleted: {} }; 
+  return { character: "Hacker", path: "A", stage: 4, suspicion: 0, mazesCompleted: {} }; 
+}
+function saveGame() {
+  localStorage.setItem(SAVE_KEY + "character", save.character);
+  localStorage.setItem(SAVE_KEY + "path", save.path);
+  localStorage.setItem(SAVE_KEY + "stage", save.stage);
+  localStorage.setItem(SAVE_KEY + "suspicion", save.suspicion);
+  const result = save.mazesCompleted[save.path];
+  if (result) {
+    localStorage.setItem(SAVE_KEY + "maze." + save.path + ".moves", result.moves);
+    localStorage.setItem(SAVE_KEY + "maze." + save.path + ".timeLeft", result.timeLeft);
+  }
 }
 function loadGame() 
 {
@@ -40,41 +63,18 @@ function loadGame()
   if (stageValue !== null && Number.isFinite(stage) && stage > 0) game.stage = stage;
   if (suspicionValue !== null && Number.isFinite(suspicion) && suspicion >= 0) game.suspicion = suspicion;
   if (character) game.character = character;
-  Object.keys(MAZES).forEach(id => {
-    const movesValue = localStorage.getItem(SAVE_KEY + "maze." + id + ".moves");
-    const timeLeftValue = localStorage.getItem(SAVE_KEY + "maze." + id + ".timeLeft");
-    const moves = Number(movesValue);
-    const timeLeft = Number(timeLeftValue);
-    if (movesValue !== null && timeLeftValue !== null && Number.isFinite(moves) && moves >= 0 &&
-        Number.isFinite(timeLeft) && timeLeft >= 0) {
-      game.mazesCompleted[id] = { moves, timeLeft };
-    }
-  });
+  const movesValue = localStorage.getItem(SAVE_KEY + "maze." + game.path + ".moves");
+  const timeLeftValue = localStorage.getItem(SAVE_KEY + "maze." + game.path + ".timeLeft");
+  const moves = Number(movesValue);
+  const timeLeft = Number(timeLeftValue);
+  if (movesValue !== null && timeLeftValue !== null && Number.isFinite(moves) && moves >= 0 &&
+      Number.isFinite(timeLeft) && timeLeft >= 0) {
+    game.mazesCompleted[game.path] = { moves, timeLeft };
+  }
   return game;
 }
-function saveGame() {
-  localStorage.setItem(SAVE_KEY + "character", save.character);
-  localStorage.setItem(SAVE_KEY + "path", save.path);
-  localStorage.setItem(SAVE_KEY + "stage", save.stage);
-  localStorage.setItem(SAVE_KEY + "suspicion", save.suspicion);
-  Object.keys(save.mazesCompleted).forEach(id => {
-    const result = save.mazesCompleted[id];
-    localStorage.setItem(SAVE_KEY + "maze." + id + ".moves", result.moves);
-    localStorage.setItem(SAVE_KEY + "maze." + id + ".timeLeft", result.timeLeft);
-  });
-}
 
-/* ===== MAZE STATE - Contributor: <NAME> ===== */
 let save = loadGame();
-let cfg, cells, rows, cols;
-let paths = [];        // one array of "r,c" keys per source
-let active = 0;        // index of the source being drawn
-let moves = 0, timeLeft = 0, timer = null, locked = false;
-let canRetry = false;
-
-const $ = id => document.getElementById(id);
-const key = (r, c) => r + "," + c;
-const parse = k => k.split(",").map(Number);
 
 /* createMaze(): builds the grid with document.createElement */
 function createMaze(id) {
@@ -82,11 +82,11 @@ function createMaze(id) {
   canRetry = false;
   $("startAgain").hidden = true;
   save.path = id; saveGame();
-  cfg = MAZES[id];
-  rows = cfg.grid.length; cols = cfg.grid[0].length;
-  cells = cfg.grid.map(r => r.split(""));
+  mazeConfig = MAZES[id];
+  rows = mazeConfig.grid.length; cols = mazeConfig.grid[0].length;
+  cells = mazeConfig.grid.map(r => r.split(""));
   paths = []; moves = 0; locked = false; active = 0;
-  timeLeft = cfg.time;
+  timeLeft = mazeConfig.time;
   cells.forEach((row, r) => row.forEach((ch, c) => { if (ch === "S") paths.push([key(r, c)]); }));
 
   const grid = $("grid");
@@ -100,7 +100,7 @@ function createMaze(id) {
     b.addEventListener("click", () => connectNode(r, c));
     grid.appendChild(b);
   }));
-  $("story").textContent = cfg.story;
+  $("story").textContent = mazeConfig.story;
   setMsg(paths.length > 1 ? "Select a source, then build a path to the EXIT." : "Click START, then build a path to the EXIT.", "");
   $("suspicion").textContent = save.suspicion;
   render();
@@ -162,13 +162,13 @@ function updateSuspicion(n) {
 }
 function failMaze() {
   clearInterval(timer); locked = true;
-  updateSuspicion(cfg.penalty);
+  updateSuspicion(mazeConfig.penalty);
   if (save.suspicion >= 100) {
     setMsg("SUBJECT DELETED. GAME OVER.", "bad");
   } else {
     canRetry = true;
     $("startAgain").hidden = false;
-    setMsg("CONNECTION LOST (+" + cfg.penalty + " suspicion). Start again to retry.", "bad");
+    setMsg("CONNECTION LOST (+" + mazeConfig.penalty + " suspicion). Start again to retry.", "bad");
   }
 }
 
