@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>GLITCH - Security Pattern</title>
+  <link rel="stylesheet" href="../CSS/pattern.css">
+</head>
+<body>
+
+  <!-- Suspicion bar: the higher it gets, the closer NEXUS is to finding you -->
+  <div class="suspicion">
+    <span>SUSPICION</span>
+    <div class="suspicion-track"><div id="suspicionFill"></div></div>
+    <span id="suspicionText">0%</span>
+  </div>
+
+  <main class="panel">
+    <h1>PUZZLE: SECURITY PATTERN</h1>
+    <p class="hint">Select the three symbols in the correct order:</p>
+
+    <!-- The correct sequence (changes every round) -->
+    <div class="target" id="target"></div>
+
+    <!-- The clickable symbols (built by JavaScript) -->
+    <div class="symbols" id="symbols"></div>
+
+    <!-- The 3 slots that show the player's selection -->
+    <div class="slots" id="slots"></div>
+
+    <p class="message" id="message"></p>
+
+    <div class="actions">
+      <button id="confirmBtn" class="btn">CONFIRM</button>
+      <button id="resetBtn" class="btn btn-ghost">RESET PATTERN</button>
+    </div>
+  </main>
+
+  <script src="../JavaScript/pattern.js"></script>
+</body>
+</html>
