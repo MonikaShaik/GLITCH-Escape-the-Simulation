@@ -7,5 +7,5 @@ newGameBtn.addEventListener("click", function () {
 
 function selectCharacter(character) {
   localStorage.setItem("selectedCharacter", character);
-  window.location.href = "network-maze.html";
+  window.location.href = "password.html";
 }
