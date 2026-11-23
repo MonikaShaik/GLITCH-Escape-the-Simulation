@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>GLITCH - Main Menu</title>
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="../CSS/styles.css" />
+    <link rel="stylesheet" href="../CSS/menu.css" />
+  </head>
+
+  <body>
+    <!-- MAIN MENU -->
+    <div id="mainMenu">
+      <button id="newGameBtn">NEW GAME</button>
+    </div>
+
+    <!-- CHARACTER SELECTION -->
+    <div id="characterSelect" hidden>
+      <h1>CHOOSE YOUR CHARACTER</h1>
+
+      <div class="characters">
+        <div class="character-hacker">
+          <img src="../Images/hacker.png" alt="Hacker" />
+          <button onclick="selectCharacter('hacker')">HACKER</button>
+        </div>
+        <div class="character-detective">
+          <img src="../Images/detective.png" alt="Detective" />
+          <button onclick="selectCharacter('detective')">DETECTIVE</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- JAVASCRIPT -->
+    <script src="../JavaScript/menu.js"></script>
+  </body>
+</html>
