@@ -196,8 +196,9 @@ function handleAnswerKey(event) {
 function continueToStageThree() {
   state.stage = 3;
   saveGame();
-  alert("Stage 3 (Security Pattern) goes here.");
+  window.location.href = "pattern.html";
 }
+
 
 submitBtn.addEventListener("click", checkAnswer);
 answerInput.addEventListener("keydown", handleAnswerKey);
