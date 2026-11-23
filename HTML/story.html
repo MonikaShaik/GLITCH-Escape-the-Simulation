@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>GLITCH - Choose Your Story</title>
+
+    <link rel="stylesheet" href="../CSS/styles.css" />
+    <link rel="stylesheet" href="../CSS/story.css" />
+  </head>
+
+  <body>
+    <!-- STORY SELECTION -->
+    <section id="storySelection">
+      <h1>CHOOSE YOUR STORY</h1>
+
+      <p id="characterLabel"></p>
+
+      <div id="storyOptions" class="story-options">
+        <!-- Cards created by JavaScript -->
+      </div>
+    </section>
+
+    <!-- FIRST SCENE -->
+    <section id="gameScene" hidden>
+      <p id="sceneCharacter"></p>
+
+      <h1 id="sceneTitle"></h1>
+
+      <p id="sceneText"></p>
+
+      <div id="sceneChoices"></div>
+
+      <p id="sceneMessage" aria-live="polite"></p>
+    </section>
+
+    <script src="../JavaScript/story.js"></script>
+  </body>
+</html>

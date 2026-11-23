@@ -1,0 +1,522 @@
+/* =====================================
+   GLITCH - ESCAPE THE SIMULATION
+   STORY SELECTION + GAME SCENES
+===================================== */
+
+/* =====================================
+   COLORS
+===================================== */
+
+:root {
+  --bg: #05080f;
+  --cyan: #00f0ff;
+  --green: #39ff88;
+  --red: #ff2e63;
+  --dim: #12202e;
+  --white: #ffffff;
+}
+
+/* =====================================
+   GENERAL SETTINGS
+===================================== */
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+
+  width: 100%;
+  min-height: 100%;
+}
+
+body {
+  min-height: 100vh;
+  padding: 20px;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  font-family: "Courier New", monospace;
+  color: var(--white);
+
+  background-color: var(--bg);
+
+  background-image: url("../Images/GLITCH_background.png");
+
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+}
+
+/* =====================================
+   HIDDEN SCREENS
+===================================== */
+
+[hidden] {
+  display: none !important;
+}
+
+/* =====================================
+   STORY SELECTION CONTAINER
+===================================== */
+
+#storySelection {
+  width: 100%;
+  max-width: 700px;
+
+  padding: 30px;
+
+  text-align: center;
+
+  background: var(--bg);
+
+  border: 2px solid var(--cyan);
+  border-radius: 12px;
+
+  box-shadow: 0 0 25px var(--cyan);
+}
+
+/* =====================================
+   STORY SELECTION TITLE
+===================================== */
+
+#storySelection h1 {
+  margin: 0 0 20px;
+
+  font-family: "Courier New", monospace;
+  font-size: 28px;
+  font-weight: bold;
+  letter-spacing: 3px;
+
+  color: var(--cyan);
+  text-align: center;
+}
+
+/* =====================================
+   SELECTED CHARACTER LABEL
+===================================== */
+
+#characterLabel {
+  margin: 0 0 25px;
+
+  font-size: 18px;
+  font-weight: bold;
+  letter-spacing: 2px;
+
+  color: var(--cyan);
+}
+
+/* =====================================
+   STORY CARDS LAYOUT
+===================================== */
+
+.story-options {
+  display: flex;
+  justify-content: center;
+  align-items: stretch;
+
+  gap: 20px;
+  margin-top: 25px;
+}
+
+/* =====================================
+   STORY CARDS
+===================================== */
+
+.story-card {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  gap: 15px;
+
+  width: 280px;
+  min-height: 230px;
+
+  padding: 20px;
+
+  background: var(--dim);
+  color: var(--white);
+
+  border: 2px solid var(--cyan);
+  border-radius: 10px;
+
+  font-family: "Courier New", monospace;
+
+  cursor: pointer;
+
+  box-shadow: 0 0 15px var(--cyan);
+
+  transition:
+    background-color 0.3s,
+    transform 0.3s,
+    box-shadow 0.3s;
+}
+
+/* =====================================
+   STORY CARD TITLE
+===================================== */
+
+.story-card h2 {
+  margin: 0;
+
+  font-family: "Courier New", monospace;
+  font-size: 20px;
+  font-weight: bold;
+  letter-spacing: 1px;
+
+  color: var(--cyan);
+}
+
+/* =====================================
+   STORY CARD DESCRIPTION
+===================================== */
+
+.story-card p {
+  margin: 0;
+
+  font-size: 14px;
+  line-height: 1.6;
+
+  color: var(--white);
+}
+
+/* =====================================
+   STORY CARD HOVER
+===================================== */
+
+.story-card:hover {
+  background: var(--bg);
+
+  transform: translateY(-5px);
+
+  box-shadow: 0 0 30px var(--cyan);
+}
+
+/* =====================================
+   DETECTIVE STORY THEME
+===================================== */
+
+#storySelection.detective-theme {
+  border-color: var(--red);
+
+  box-shadow: 0 0 25px var(--red);
+}
+
+#storySelection.detective-theme h1 {
+  color: var(--red);
+}
+
+#storySelection.detective-theme #characterLabel {
+  color: var(--red);
+}
+
+#storySelection.detective-theme .story-card {
+  border-color: var(--red);
+
+  box-shadow: 0 0 15px var(--red);
+}
+
+#storySelection.detective-theme .story-card h2 {
+  color: var(--red);
+}
+
+#storySelection.detective-theme .story-card:hover {
+  box-shadow: 0 0 30px var(--red);
+}
+
+/* =====================================
+   GAME SCENE CONTAINER
+===================================== */
+
+#gameScene {
+  width: 100%;
+  max-width: 700px;
+
+  padding: 35px;
+
+  text-align: center;
+
+  background: var(--bg);
+
+  border: 2px solid var(--cyan);
+  border-radius: 12px;
+
+  box-shadow: 0 0 25px var(--cyan);
+}
+
+/* =====================================
+   SCENE CHARACTER LABEL
+===================================== */
+
+#sceneCharacter {
+  margin: 0 0 20px;
+
+  font-size: 17px;
+  font-weight: bold;
+  letter-spacing: 2px;
+
+  color: var(--cyan);
+}
+
+/* =====================================
+   SCENE TITLE
+===================================== */
+
+#sceneTitle {
+  margin: 0 0 25px;
+
+  font-family: "Courier New", monospace;
+  font-size: 28px;
+  font-weight: bold;
+  letter-spacing: 3px;
+
+  color: var(--cyan);
+}
+
+/* =====================================
+   SCENE DESCRIPTION
+===================================== */
+
+#sceneText {
+  max-width: 550px;
+
+  margin: 0 auto 30px;
+
+  font-size: 17px;
+  line-height: 1.7;
+
+  color: var(--white);
+}
+
+/* =====================================
+   SCENE ANSWER BUTTONS
+===================================== */
+
+#sceneChoices {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  gap: 12px;
+}
+
+#sceneChoices button {
+  width: 100%;
+  max-width: 400px;
+
+  padding: 14px 20px;
+
+  font-family: "Courier New", monospace;
+  font-size: 16px;
+  font-weight: bold;
+  letter-spacing: 1px;
+
+  background: var(--dim);
+  color: var(--cyan);
+
+  border: 2px solid var(--cyan);
+  border-radius: 6px;
+
+  cursor: pointer;
+
+  box-shadow: 0 0 10px #00f0ff44;
+
+  transition: 0.3s;
+}
+
+/* =====================================
+   ANSWER BUTTON HOVER
+===================================== */
+
+#sceneChoices button:hover:not(:disabled) {
+  background: var(--cyan);
+  color: var(--bg);
+
+  box-shadow: 0 0 20px var(--cyan);
+}
+
+/* =====================================
+   DISABLED ANSWER BUTTONS
+===================================== */
+
+#sceneChoices button:disabled {
+  opacity: 0.5;
+  cursor: default;
+}
+
+/* =====================================
+   DETECTIVE GAME THEME
+===================================== */
+
+#gameScene.detective-theme {
+  border-color: var(--red);
+
+  box-shadow: 0 0 25px var(--red);
+}
+
+#gameScene.detective-theme #sceneCharacter {
+  color: var(--red);
+}
+
+#gameScene.detective-theme #sceneTitle {
+  color: var(--red);
+}
+
+#gameScene.detective-theme #sceneChoices button {
+  color: var(--red);
+  border-color: var(--red);
+
+  box-shadow: 0 0 10px #ff2e6344;
+}
+
+#gameScene.detective-theme #sceneChoices button:hover:not(:disabled) {
+  background: var(--red);
+  color: var(--bg);
+
+  box-shadow: 0 0 20px var(--red);
+}
+
+/* =====================================
+   SCENE MESSAGES
+===================================== */
+
+#sceneMessage {
+  min-height: 28px;
+
+  margin-top: 25px;
+
+  font-family: "Courier New", monospace;
+  font-size: 16px;
+  font-weight: bold;
+  letter-spacing: 1px;
+}
+
+/* CORRECT ANSWER */
+
+#sceneMessage.success {
+  color: var(--green);
+
+  text-shadow: 0 0 10px var(--green);
+}
+
+/* WRONG ANSWER */
+
+#sceneMessage.error {
+  color: var(--red);
+
+  text-shadow: 0 0 10px var(--red);
+}
+
+/* =====================================
+   KEYBOARD ACCESSIBILITY
+===================================== */
+
+button:focus-visible {
+  outline: 3px solid var(--green);
+  outline-offset: 4px;
+}
+
+/* =====================================
+   MOBILE RESPONSIVE
+===================================== */
+
+@media (max-width: 600px) {
+  body {
+    padding: 15px;
+  }
+
+  /* STORY SELECTION */
+
+  #storySelection {
+    padding: 20px 15px;
+  }
+
+  #storySelection h1 {
+    font-size: 20px;
+    letter-spacing: 2px;
+  }
+
+  #characterLabel {
+    font-size: 14px;
+    letter-spacing: 1px;
+  }
+
+  /* STORY CARDS */
+
+  .story-options {
+    flex-direction: column;
+    align-items: center;
+
+    gap: 15px;
+  }
+
+  .story-card {
+    width: 100%;
+    max-width: 350px;
+    min-height: 160px;
+
+    padding: 15px;
+  }
+
+  .story-card h2 {
+    font-size: 17px;
+  }
+
+  .story-card p {
+    font-size: 13px;
+    line-height: 1.5;
+  }
+
+  /* GAME SCENE */
+
+  #gameScene {
+    padding: 25px 15px;
+  }
+
+  #sceneCharacter {
+    font-size: 14px;
+  }
+
+  #sceneTitle {
+    font-size: 20px;
+    letter-spacing: 2px;
+  }
+
+  #sceneText {
+    font-size: 15px;
+  }
+
+  /* ANSWER BUTTONS */
+
+  #sceneChoices button {
+    font-size: 14px;
+    padding: 12px 15px;
+  }
+
+  /* GAME MESSAGES */
+
+  #sceneMessage {
+    font-size: 14px;
+  }
+}
+
+/* =====================================
+   REDUCED MOTION
+===================================== */
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation: none !important;
+    transition: none !important;
+  }
+}
