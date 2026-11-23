@@ -19,6 +19,7 @@ const characterSelect = document.getElementById("characterSelect");
 
 // START NEW GAME
 newGameBtn.addEventListener("click", function () {
+  localStorage.removeItem("glitchSave");
   mainMenu.hidden = true;
   characterSelect.hidden = false;
 });
