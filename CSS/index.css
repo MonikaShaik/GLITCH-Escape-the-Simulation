@@ -1,0 +1,171 @@
+/* =====================================
+   GLITCH - GAME INSTRUCTIONS
+===================================== */
+
+/* GENERAL SETTINGS */
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  padding: 30px 20px;
+
+  background-color: #05080f;
+  background-image: url("../Images/GLITCH_background.png");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+
+  color: white;
+  font-family: "Courier New", monospace;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+/* SOLID NEON FRAME */
+
+body::before {
+  content: "";
+  position: fixed;
+
+  width: 800px;
+  max-width: calc(100% - 30px);
+  height: 90vh;
+
+  background-color: #05080f;
+
+  border: 2px solid #00f0ff;
+  border-radius: 12px;
+
+  box-shadow: 0 0 25px #00f0ff;
+
+  z-index: 0;
+}
+
+/* CONTENT INSIDE FRAME */
+
+h1,
+h2,
+p,
+ol {
+  position: relative;
+  z-index: 1;
+
+  width: 100%;
+  max-width: 700px;
+}
+
+/* MAIN TITLE */
+
+h1 {
+  margin: 0 0 15px;
+
+  color: #00f0ff;
+  font-size: 32px;
+  text-align: center;
+  letter-spacing: 3px;
+
+  text-shadow: 0 0 15px #00f0ff;
+}
+
+/* SECTION TITLES */
+
+h2 {
+  color: #39ff88;
+  font-size: 22px;
+  margin-top: 25px;
+  margin-bottom: 15px;
+}
+
+/* GAME DESCRIPTION */
+
+p {
+  font-size: 16px;
+  line-height: 1.7;
+}
+
+/* HOW TO PLAY */
+
+ol {
+  padding-left: 30px;
+}
+
+li {
+  font-size: 16px;
+  line-height: 1.7;
+  margin-bottom: 10px;
+}
+
+/* FINAL MESSAGE */
+
+body > p:last-child {
+  color: #ff2e63;
+  font-weight: bold;
+  text-align: center;
+  margin-top: 25px;
+}
+
+/* MOBILE */
+
+@media (max-width: 600px) {
+  body {
+    padding: 25px;
+  }
+
+  body::before {
+    width: calc(100% - 20px);
+    height: 95vh;
+  }
+
+  h1 {
+    font-size: 23px;
+  }
+
+  h2 {
+    font-size: 18px;
+  }
+
+  p,
+  li {
+    font-size: 14px;
+  }
+}
+
+/* CLOSE DESCRIPTION AND START GAME */
+
+.close-btn {
+  position: relative;
+  z-index: 1;
+
+  display: inline-block;
+  margin-top: 20px;
+  padding: 14px 35px;
+
+  background-color: #00f0ff;
+  color: #05080f;
+
+  border: 2px solid #00f0ff;
+  border-radius: 6px;
+
+  font-family: "Courier New", monospace;
+  font-size: 17px;
+  font-weight: bold;
+
+  text-decoration: none;
+  text-align: center;
+
+  cursor: pointer;
+}
+
+.close-btn:hover {
+  background-color: #05080f;
+  color: #00f0ff;
+  box-shadow: 0 0 20px #00f0ff;
+}
