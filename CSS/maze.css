@@ -148,3 +148,69 @@ button.on {
   font-size: 13px;
   color: #6aa;
 }
+
+/* GAME ENDING POPUP */
+
+#endingPopup[hidden] {
+  display: none;
+}
+
+#endingPopup {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  padding: 20px;
+  background: rgba(0, 0, 0, 0.9);
+}
+
+.ending-box {
+  width: 100%;
+  max-width: 550px;
+  padding: 35px;
+
+  text-align: center;
+
+  background: #05080f;
+  border: 2px solid #00f0ff;
+  border-radius: 12px;
+
+  box-shadow: 0 0 35px #00f0ff;
+}
+
+.ending-box h1 {
+  color: #00f0ff;
+  font-size: 28px;
+}
+
+.ending-box h2,
+.ending-box h3 {
+  color: #39ff88;
+}
+
+.ending-box p {
+  color: white;
+  line-height: 1.6;
+}
+
+.ending-box button {
+  margin-top: 20px;
+  padding: 14px 30px;
+
+  background: #00f0ff;
+  color: #05080f;
+
+  border: none;
+  border-radius: 6px;
+
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.ending-box button:hover {
+  box-shadow: 0 0 20px #00f0ff;
+}
