@@ -31,6 +31,11 @@ h1 {
   letter-spacing: 4px;
   animation: glitch 3s infinite;
 }
+#mazeTitle {
+  margin: 4px 0;
+  color: var(--green);
+  font-size: 18px;
+}
 @keyframes glitch {
   0%,
   92%,

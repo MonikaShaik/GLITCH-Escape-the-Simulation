@@ -150,6 +150,7 @@ function createMaze(id) {
     }),
   );
   $("story").textContent = cfg.story;
+  $("mazeTitle").textContent = cfg.title;
   setMsg(
     paths.length > 1
       ? "Select a source, then build a path to the EXIT."
