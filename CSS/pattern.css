@@ -1,0 +1,125 @@
+/* ============ 1. VARIABLES (all colors in one place) ============ */
+:root {
+  --bg: #050b14;          /* dark page background */
+  --panel: #08182a;       /* panel color */
+  --neon: #19e6e6;        /* bright cyan neon */
+  --neon-dim: #0e6f78;    /* dimmer cyan for borders */
+  --danger: #ff3b6b;      /* red/pink for errors */
+  --ok: #3dffa0;          /* green for success */
+  --text: #cfeff5;
+}
+
+/* ============ 2. RESET + BODY ============ */
+* { box-sizing: border-box; margin: 0; }   /* box-sizing: padding is included in the width */
+
+body {
+  min-height: 100vh;                         /* at least the full screen height */
+  background: radial-gradient(circle at 50% 0%, #0b2540, var(--bg) 70%);
+  color: var(--text);
+  font-family: "Trebuchet MS", system-ui, sans-serif;
+  display: flex;                             /* flexbox: lets us center the content */
+  flex-direction: column;
+  align-items: center;                       /* horizontal centering */
+  justify-content: center;                   /* vertical centering */
+  gap: 20px;
+  padding: 20px;
+}
+
+/* ============ 3. PANEL ============ */
+.panel {
+  width: min(560px, 100%);                   /* max 560px, full width on mobile */
+  background: var(--panel);
+  border: 2px solid var(--neon-dim);
+  border-radius: 14px;
+  padding: 24px;
+  text-align: center;
+  box-shadow: 0 0 24px rgba(25, 230, 230, .25),      /* outer glow */
+              inset 0 0 18px rgba(25, 230, 230, .08); /* inner glow */
+}
+h1 { font-size: 1.1rem; letter-spacing: 2px; color: var(--neon); margin-bottom: 8px; }
+.hint { font-size: .9rem; opacity: .8; }
+
+/* ============ 4. TARGET (the sequence to match) ============ */
+.target {
+  display: flex; justify-content: center; gap: 18px;
+  margin: 12px 0 20px;
+  font-size: 1.6rem; color: var(--neon);
+}
+
+/* ============ 5. SYMBOLS (grid of 6 buttons) ============ */
+.symbols {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);     /* 3 equal-width columns */
+  gap: 12px;
+  margin-bottom: 20px;
+}
+.symbol {
+  aspect-ratio: 1;                           /* keeps each button square */
+  font-size: 2.2rem;
+  background: transparent;
+  color: var(--neon);
+  border: 2px solid var(--neon-dim);
+  border-radius: 10px;
+  cursor: pointer;
+  transition: transform .15s, box-shadow .15s, border-color .15s;
+}
+.symbol:hover { transform: scale(1.06); border-color: var(--neon); }
+.symbol:focus-visible { outline: 3px solid #fff; }   /* visible focus for keyboard users */
+
+/* Highlight: applied when the player clicks a symbol */
+.symbol.selected {
+  border-color: var(--neon);
+  background: rgba(25, 230, 230, .15);
+  box-shadow: 0 0 16px var(--neon);
+}
+
+/* ============ 6. SLOTS (the 3 boxes) ============ */
+.slots { display: flex; justify-content: center; gap: 12px; margin-bottom: 14px; }
+.slot {
+  width: 64px; height: 52px;
+  display: grid; place-items: center;        /* centers the symbol inside the box */
+  border: 2px dashed var(--neon-dim);
+  border-radius: 8px;
+  font-size: 1.5rem; color: var(--neon);
+}
+.slot.filled { border-style: solid; border-color: var(--neon); }
+
+/* ============ 7. MESSAGE + BUTTONS ============ */
+.message { min-height: 1.4em; margin-bottom: 12px; font-size: .95rem; }
+.message.error { color: var(--danger); }
+.message.success { color: var(--ok); }
+
+.actions { display: flex; justify-content: center; gap: 12px; flex-wrap: wrap; }
+.btn {
+  padding: 10px 22px;
+  background: var(--neon); color: #00161a;
+  border: 0; border-radius: 8px;
+  font-weight: 700; letter-spacing: 1px; cursor: pointer;
+}
+.btn-ghost { background: transparent; color: var(--neon); border: 2px solid var(--neon-dim); }
+.btn:disabled { opacity: .4; cursor: not-allowed; }
+
+/* ============ 8. SUSPICION BAR ============ */
+.suspicion {
+  width: min(560px, 100%);
+  display: flex; align-items: center; gap: 10px;
+  font-size: .8rem; letter-spacing: 1px;
+}
+.suspicion-track {
+  flex: 1; height: 10px;
+  background: #0a2236; border: 1px solid var(--neon-dim); border-radius: 6px;
+  overflow: hidden;
+}
+#suspicionFill {
+  height: 100%; width: 0%;
+  background: linear-gradient(90deg, var(--neon), var(--danger));
+  transition: width .4s;                     /* the bar grows smoothly */
+}
+
+/* ============ 9. ANIMATION for wrong attempts (shake) ============ */
+.shake { animation: shake .4s; }
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  25% { transform: translateX(-8px); }
+  75% { transform: translateX(8px); }
+}
