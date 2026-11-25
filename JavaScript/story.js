@@ -34,6 +34,7 @@ const storyOptions = {
         "An encrypted message has appeared on your computer. " +
         "Decode it to uncover the truth about NEXUS.",
       firstScene: "hacker_decrypt_1",
+      mazePath: "A",
     },
 
     {
@@ -43,6 +44,7 @@ const storyOptions = {
         "A mysterious person called GHOST has contacted you. " +
         "Track their location and discover who they really are.",
       firstScene: "hacker_trace_1",
+      mazePath: "B",
     },
   ],
 
@@ -56,6 +58,7 @@ const storyOptions = {
         "A programmer has mysteriously disappeared. " +
         "Investigate a locked locker and search for evidence.",
       firstScene: "detective_locker_1",
+      mazePath: "C",
     },
 
     {
@@ -65,6 +68,7 @@ const storyOptions = {
         "You discover a suspicious computer in the missing " +
         "programmer's apartment. Search its secret files.",
       firstScene: "detective_computer_1",
+      mazePath: "D",
     },
   ],
 };
@@ -201,12 +205,14 @@ function selectStory(story) {
     character: character,
     storyPath: story.id,
     currentScene: story.firstScene,
+    mazePath: story.mazePath,
   };
 
   localStorage.setItem("glitchStorySelection", JSON.stringify(selection));
 
   localStorage.setItem("selectedStory", story.id);
   localStorage.setItem("currentScene", story.firstScene);
+  localStorage.setItem("glitchSave.path", story.mazePath);
 
   // OPEN FIRST SCENE
 
